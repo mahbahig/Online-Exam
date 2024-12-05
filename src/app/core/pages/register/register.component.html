@@ -1,0 +1,33 @@
+<h2 class="font-poppins">Sign up</h2>
+<form [formGroup]="registerForm" (ngSubmit)="registerFormSubmit()">
+    <div class="flex flex-column row-gap-2">
+        <input class="px-3 py-3 font-poppins shadow-2 w-full" type="text" pInputText formControlName="firstName" placeholder="First Name" [ngClass]="{'ng-invalid ng-dirty': this.registerForm.controls.firstName.errors}"/>
+        <input class="px-3 py-3 font-poppins shadow-2 w-full" type="text" pInputText formControlName="lastName" placeholder="Last Name" [ngClass]="{'ng-invalid ng-dirty': this.registerForm.controls.lastName.errors}"/>
+        <input class="px-3 py-3 font-poppins shadow-2 w-full" type="text" pInputText formControlName="username" placeholder="Username" [ngClass]="{'ng-invalid ng-dirty': this.registerForm.controls.username.errors}"/>
+        @if (this.registerForm.controls.username.touched && this.registerForm.controls.username.errors ) {
+            @if (this.registerForm.controls.username.errors) {
+                <app-message-box type="error" message="Username should be between 4 and 25 charecters"></app-message-box>
+            }
+        }
+        <input class="px-3 py-3 font-poppins shadow-2 w-full" type="text" pInputText formControlName="phone" placeholder="Phone Number" [ngClass]="{'ng-invalid ng-dirty': this.registerForm.controls.phone.errors}"/>
+        <input class="px-3 py-3 font-poppins shadow-2 w-full" type="email" pInputText formControlName="email" placeholder="Email" [ngClass]="{'ng-invalid ng-dirty': this.registerForm.controls.email.errors}"/>
+        @if (this.registerForm.controls.email.touched && this.registerForm.controls.email.errors ) {
+            @if (this.registerForm.controls.email.errors?.['email']) {
+                <app-message-box type="error" message="Email is invalid"></app-message-box>
+            }
+        }
+        <div class="relative flex align-items-center">
+            <input class="px-3 py-3 font-poppins shadow-2 w-full" [type]="showPassword" pInputText formControlName="password"  placeholder="Password" [ngClass]="{'ng-invalid ng-dirty': this.registerForm.controls.password.errors}"/>
+            <i class="fa-regular cursor-pointer absolute text-2xl text-gray-700 right-5" [ngClass]="{'fa-eye': this.showPassword == 'password', 'fa-eye-slash': this.showPassword == 'text'}" (click)="toggleShowPassword()"></i>
+        </div>
+        <div class="relative flex align-items-center">
+            <input class="px-3 py-3 font-poppins shadow-2 w-full" [type]="showRePassword" pInputText formControlName="rePassword"  placeholder="Confirm Password" [ngClass]="{'ng-invalid ng-dirty': this.registerForm.controls.rePassword.errors}"/>
+            <i class="fa-regular cursor-pointer absolute text-2xl text-gray-700 right-5" [ngClass]="{'fa-eye': this.showRePassword == 'password', 'fa-eye-slash': this.showRePassword == 'text'}" (click)="toggleShowRePassword()"></i>
+        </div>
+    </div>
+    <p class="text-right text-main cursor-pointer" [routerLink]="['/auth/forgetpassword']">Recover Password?</p>
+    <app-main-button text="Sign up" [isLoading]="isLoading" classes="w-full"></app-main-button>
+    @if (userMessage != 'None') {
+        <app-message-box [type]="userStatus" [message]="userMessage"></app-message-box>
+    }    
+</form>
