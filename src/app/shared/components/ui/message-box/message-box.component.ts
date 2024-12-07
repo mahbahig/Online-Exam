@@ -11,6 +11,4 @@ import { MessagesModule } from 'primeng/messages';
 export class MessageBoxComponent {
   @Input() type: string = 'success';
   @Input() message: string = '';
-
-  // messages: string
 }

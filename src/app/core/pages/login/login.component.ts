@@ -20,18 +20,21 @@ export class LoginComponent {
   private readonly _authApiService = inject(AuthApiService);
   private readonly titleCasePipe = inject(TitleCasePipe);
 
+  // Used to show the loading spinner
   isLoading: boolean = false;
-
+  // Used to store the user status e.g. failure or success
   userStatus!: string;
+  // Used to show the user message
   userMessage: string = 'None';
 
+  // Form group for the login form
   loginForm = this._formBuilder.group({
     email: [null, [Validators.required, Validators.email]],
     password: [null, [Validators.required, Validators.pattern('^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{8,}$')]]
   });
 
+  // Function to handle the register form submission
   loginFormSubmit(): void {
-    console.log(this.loginForm.controls);  
     if (!this.isLoading) {
       if(this.loginForm.valid) {
         this.isLoading = !this.isLoading;
@@ -57,6 +60,7 @@ export class LoginComponent {
     }
   }
 
+  // Hide and show password
   showPassword: string = 'password';
   toggleShowPassword(): void {
     if(this.showPassword == 'password') {

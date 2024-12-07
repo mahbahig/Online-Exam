@@ -12,7 +12,7 @@
         <input class="px-3 py-3 font-poppins shadow-2 w-full" type="text" pInputText formControlName="phone" placeholder="Phone Number" [ngClass]="{'ng-invalid ng-dirty': this.registerForm.controls.phone.errors}"/>
         <input class="px-3 py-3 font-poppins shadow-2 w-full" type="email" pInputText formControlName="email" placeholder="Email" [ngClass]="{'ng-invalid ng-dirty': this.registerForm.controls.email.errors}"/>
         @if (this.registerForm.controls.email.touched && this.registerForm.controls.email.errors ) {
-            @if (this.registerForm.controls.email.errors?.['email']) {
+            @if (this.registerForm.controls.email.errors['email']) {
                 <app-message-box type="error" message="Email is invalid"></app-message-box>
             }
         }
@@ -25,7 +25,7 @@
             <i class="fa-regular cursor-pointer absolute text-2xl text-gray-700 right-5" [ngClass]="{'fa-eye': this.showRePassword == 'password', 'fa-eye-slash': this.showRePassword == 'text'}" (click)="toggleShowRePassword()"></i>
         </div>
     </div>
-    <p class="text-right text-main cursor-pointer" [routerLink]="['/auth/forgetpassword']">Recover Password?</p>
+    <p class="text-center" [routerLink]="['/auth/forgetpassword']">Already have an account? <span class="text-main cursor-pointer">Login</span></p>
     <app-main-button text="Sign up" [isLoading]="isLoading" classes="w-full"></app-main-button>
     @if (userMessage != 'None') {
         <app-message-box [type]="userStatus" [message]="userMessage"></app-message-box>

@@ -3,10 +3,10 @@
     <div class="flex flex-column row-gap-4">
         <input class="px-3 py-3 font-poppins shadow-2 w-full" type="email" pInputText formControlName="email"  placeholder="Enter Email" [ngClass]="{'ng-invalid ng-dirty': this.loginForm.controls.email.errors}"/>
         @if (this.loginForm.controls.email.touched && this.loginForm.controls.email.errors ) {
-            @if (this.loginForm.controls.email.errors?.['required']) {
+            @if (this.loginForm.controls.email.errors['required']) {
                 <app-message-box type="error" message="Email is required"></app-message-box>
             }
-            @else if (this.loginForm.controls.email.errors?.['email']) {
+            @else if (this.loginForm.controls.email.errors['email']) {
                 <app-message-box type="error" message="Email is invalid"></app-message-box>
             }
         }
@@ -15,10 +15,10 @@
             <i class="fa-regular cursor-pointer absolute text-2xl text-gray-700 right-5" [ngClass]="{'fa-eye': this.showPassword == 'password', 'fa-eye-slash': this.showPassword == 'text'}" (click)="toggleShowPassword()"></i>
         </div>
         @if (this.loginForm.controls.password.touched && this.loginForm.controls.password.errors ) {
-            @if (this.loginForm.controls.password.errors?.['required']) {
+            @if (this.loginForm.controls.password.errors['required']) {
                 <app-message-box type="error" message="Password is required"></app-message-box>
             }
-            @else if (this.loginForm.controls.password.errors?.['pattern']) {
+            @else if (this.loginForm.controls.password.errors['pattern']) {
                 <app-message-box type="error" message="Password is invalid"></app-message-box>
             }
         }

@@ -4,21 +4,20 @@ import { Adapter } from '../../interface/adapter';
 @Injectable({
   providedIn: 'root'
 })
-export class RegisterAPIAdapter implements Adapter {
+export class ResetPasswordAPIAdapter implements Adapter {
 
   constructor() { }
 
-  successAdapt(data: any): any {
+  successAdapt(data: any) {
     return {
       status: 'success',
-      message: data.message,
-      token: data.token
+      message: data.message
     };
-  }
-  errAdapt(data: any): any {
+  };
+  errAdapt(data: any) {
     return {
       status: 'error',
       message: data.error.message
-    }
-  }
+    };
+  };
 }

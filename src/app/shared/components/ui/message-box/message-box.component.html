@@ -1,3 +1,5 @@
-<p-messages [enableService]="false" [severity]="type">
-    <ng-template pTemplate>{{message}}</ng-template>
-</p-messages>
+@if (message != 'None') {
+    <p-messages [enableService]="false" [severity]="type">
+        <ng-template pTemplate>{{message}}</ng-template>
+    </p-messages>
+}
