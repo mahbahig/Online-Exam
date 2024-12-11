@@ -1,4 +1,4 @@
-import { Component, inject } from '@angular/core';
+import { Component, ElementRef, inject, OnInit, ViewChild } from '@angular/core';
 import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 import { AuthApiService } from 'auth-api';
 import { InputTextModule } from 'primeng/inputtext';
@@ -20,6 +20,8 @@ export class LoginComponent {
   private readonly _authApiService = inject(AuthApiService);
   private readonly titleCasePipe = inject(TitleCasePipe);
 
+  @ViewChild('rememberMe') rememberMe!: ElementRef;
+
   // Used to show the loading spinner
   isLoading: boolean = false;
   // Used to store the user status e.g. failure or success
@@ -29,9 +31,17 @@ export class LoginComponent {
 
   // Form group for the login form
   loginForm = this._formBuilder.group({
-    email: [null, [Validators.required, Validators.email]],
-    password: [null, [Validators.required, Validators.pattern('^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{8,}$')]]
+    email: [this.getSavedEmail(), [Validators.required, Validators.email]],
+    password: [this.getSavedPassword(), [Validators.required, Validators.pattern('^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{8,}$')]]
   });
+
+  // Function to get the saved email and password from local storage
+  getSavedEmail(): string | null {
+    return localStorage.getItem('userData') ? JSON.parse(localStorage.getItem('userData')!).email : null;
+  }
+  getSavedPassword(): string | null {
+    return localStorage.getItem('userData') ? JSON.parse(localStorage.getItem('userData')!).password : null;
+  }
 
   // Function to handle the register form submission
   loginFormSubmit(): void {
@@ -45,6 +55,7 @@ export class LoginComponent {
             if (res.status == 'success') {
               this.userMessage = 'Logged In Successfully';
               localStorage.setItem('token', res.token);
+              this.rememberMe.nativeElement.checked ? localStorage.setItem('userData', JSON.stringify({email: this.loginForm.value.email, password: this.loginForm.value.password})) : localStorage.removeItem('userData');
             }
             else if (res.status = 'error') {
               this.userMessage =  this.titleCasePipe.transform(res.message);
@@ -69,4 +80,14 @@ export class LoginComponent {
       this.showPassword = 'password';
     }
   }
+
+  // remeberMe(event: Event): void {
+  //   const checkbox = event.target as HTMLInputElement;
+  //   if (checkbox.checked) {
+  //     console.log('The "Remember me" checkbox is checked.');
+  //   } else {
+  //     console.log('The "Remember me" checkbox is not checked.');
+  //   }
+  // } 
+  
 }
