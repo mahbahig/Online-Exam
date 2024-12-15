@@ -37,10 +37,20 @@ export class LoginComponent {
 
   // Function to get the saved email and password from local storage
   getSavedEmail(): string | null {
-    return localStorage.getItem('userData') ? JSON.parse(localStorage.getItem('userData')!).email : null;
+    if (typeof localStorage !== 'undefined') {
+      return localStorage.getItem('userData') ? JSON.parse(localStorage.getItem('userData')!).email : null;
+    }
+    else {
+      return null;
+    }
   }
   getSavedPassword(): string | null {
-    return localStorage.getItem('userData') ? JSON.parse(localStorage.getItem('userData')!).password : null;
+    if (typeof localStorage !== 'undefined') {
+      return localStorage.getItem('userData') ? JSON.parse(localStorage.getItem('userData')!).password : null;
+    }
+    else {
+      return null;
+    }
   }
 
   // Function to handle the register form submission
@@ -80,14 +90,4 @@ export class LoginComponent {
       this.showPassword = 'password';
     }
   }
-
-  // remeberMe(event: Event): void {
-  //   const checkbox = event.target as HTMLInputElement;
-  //   if (checkbox.checked) {
-  //     console.log('The "Remember me" checkbox is checked.');
-  //   } else {
-  //     console.log('The "Remember me" checkbox is not checked.');
-  //   }
-  // } 
-  
 }

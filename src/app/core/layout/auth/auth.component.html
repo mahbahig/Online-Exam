@@ -1,39 +1,39 @@
-<section class="flex w-full bg-white">
-    <div class="bg-section px-8 pb-8 pt-4 border-round-right-cover w-6 shadow-5 hidden md:inline-block">
+<section class="flex h-screen w-full bg-white flex align-items-center">
+    <div class="bg-section h-full px-8 pb-8 pt-4 border-round-right-cover w-6 shadow-5 hidden md:inline-block">
         <div class="w-10">
             <h1 class="font-poppins font-50 mb-4">Welcome to <span class="font-60 text-blue">Elevate</span></h1>
             <p class="font-poppins text-lg">Quidem autem voluptatibus qui quaerat aspernatur architecto natus</p>
         </div>
         <img src="assets\images\bro.svg" alt="Boy Studying">
     </div>
-        <div class="flex flex-wrap flex-column w-9 md:w-5 mx-auto mt-2">
-            <div class="flex align-items-center mt-4 py-1 column-gap-4 justify-content-end">
-                <p>English</p>
-                <p class="text-main font-bold cursor-pointer" [routerLink]="['login']">Sign in</p>
-                <button class="text-main border-1 border-200 px-3 bg-white border-round-xl h-2rem cursor-pointer" [routerLink]="['register']">Register</button>
-                
+    <div class="flex flex-wrap flex-column h-full w-9 md:w-5 mx-auto ">
+        <div class="flex align-items-center mt-4 py-1 column-gap-4 justify-content-end">
+            <p>English</p>
+            <p class="text-main font-bold cursor-pointer" [routerLink]="['login']">Sign in</p>
+            <button class="text-main border-1 border-200 px-3 bg-white border-round-xl h-2rem cursor-pointer" [routerLink]="['register']">Register</button>
+            
+        </div>
+        <div class="w-8 mx-auto">
+            <router-outlet></router-outlet>
+            <div class="flex align-items-center justify-content-center mt-4">
+                <div class="flex-grow-1 border-top-1 border-gray-300"></div>
+                <span class="mx-3 text-gray-500">Or Continue with</span>
+                <div class="flex-grow-1 border-top-1 border-gray-300"></div>
             </div>
-            <div class="w-8 mx-auto">
-                <router-outlet></router-outlet>
-                <div class="flex align-items-center justify-content-center mt-4">
-                    <div class="flex-grow-1 border-top-1 border-gray-300"></div>
-                    <span class="mx-3 text-gray-500">Or Continue with</span>
-                    <div class="flex-grow-1 border-top-1 border-gray-300"></div>
+            <div class="flex justify-content-between w-11 mx-auto mt-4">
+                <div class="border-1 border-round-xl border-gray-300 flex justify-content-center align-items-center p-3 shadow-2 cursor-pointer">
+                    <img src="assets\images\Logo Google.svg" alt="">
                 </div>
-                <div class="flex justify-content-between w-11 mx-auto mt-4">
-                    <div class="border-1 border-round-xl border-gray-300 flex justify-content-center align-items-center p-3 shadow-2 cursor-pointer">
-                        <img src="assets\images\Logo Google.svg" alt="">
-                    </div>
-                    <div class="border-1 border-round-xl border-gray-300 flex justify-content-center align-items-center p-3 shadow-2 cursor-pointer">
-                        <img src="assets\images\Twitter Logo.svg" alt="">
-                    </div>
-                    <div class="border-1 border-round-xl border-gray-300 flex justify-content-center align-items-center p-3 shadow-2 cursor-pointer">
-                        <img src="assets\images\Facebook Logo.svg" alt="">
-                    </div>
-                    <div class="border-1 border-round-xl border-gray-300 flex justify-content-center align-items-center p-3 shadow-2 cursor-pointer">
-                        <img src="assets\images\Apple Logo.svg" alt="">
-                    </div>
+                <div class="border-1 border-round-xl border-gray-300 flex justify-content-center align-items-center p-3 shadow-2 cursor-pointer">
+                    <img src="assets\images\Twitter Logo.svg" alt="">
+                </div>
+                <div class="border-1 border-round-xl border-gray-300 flex justify-content-center align-items-center p-3 shadow-2 cursor-pointer">
+                    <img src="assets\images\Facebook Logo.svg" alt="">
+                </div>
+                <div class="border-1 border-round-xl border-gray-300 flex justify-content-center align-items-center p-3 shadow-2 cursor-pointer">
+                    <img src="assets\images\Apple Logo.svg" alt="">
                 </div>
             </div>
         </div>
+    </div>
 </section>
