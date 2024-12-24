@@ -4,7 +4,7 @@ import { AuthApiService } from 'auth-api';
 import { InputTextModule } from 'primeng/inputtext';
 import { NgClass, TitleCasePipe } from '@angular/common';
 import { MainButtonComponent } from "../../../shared/components/ui/main-button/main-button.component";
-import { RouterLink } from '@angular/router';
+import { Router, RouterLink } from '@angular/router';
 import { MessageBoxComponent } from "../../../shared/components/ui/message-box/message-box.component";
 
 @Component({
@@ -18,7 +18,8 @@ import { MessageBoxComponent } from "../../../shared/components/ui/message-box/m
 export class LoginComponent {
   private readonly _formBuilder = inject(FormBuilder);
   private readonly _authApiService = inject(AuthApiService);
-  private readonly titleCasePipe = inject(TitleCasePipe);
+  private readonly _titleCasePipe = inject(TitleCasePipe);
+  private readonly _router = inject(Router);
 
   @ViewChild('rememberMe') rememberMe!: ElementRef;
 
@@ -66,9 +67,10 @@ export class LoginComponent {
               this.userMessage = 'Logged In Successfully';
               localStorage.setItem('token', res.token);
               this.rememberMe.nativeElement.checked ? localStorage.setItem('userData', JSON.stringify({email: this.loginForm.value.email, password: this.loginForm.value.password})) : localStorage.removeItem('userData');
+              this._router.navigate(['user'])
             }
             else if (res.status = 'error') {
-              this.userMessage =  this.titleCasePipe.transform(res.message);
+              this.userMessage =  this._titleCasePipe.transform(res.message);
             }
           },
           error: (err) => {

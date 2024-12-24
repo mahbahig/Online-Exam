@@ -8,6 +8,8 @@ import { RegisterAPIAdapter } from './adapter/register/register-api.adapter';
 import { VerifyEmailAPIAdapter } from './adapter/verifyEmail/verify-email-api.adapter';
 import { VerifyCodeAPIAdapter } from './adapter/verifyCode/verify-code-api.adapter';
 import { ResetPasswordAPIAdapter } from './adapter/resetPassword/reset-password-api.adapter';
+import { LogoutAPIAdapter } from './adapter/logout/logout-api.adapter';
+import { UserDataAPIAdapter } from './adapter/userData/user-data-api.adapter';
 
 @Injectable({
   providedIn: 'root'
@@ -15,7 +17,8 @@ import { ResetPasswordAPIAdapter } from './adapter/resetPassword/reset-password-
 export class AuthApiService implements AuthAPI {
 
   constructor(private _httpClient : HttpClient, private _loginAPIAdapter : LoginAPIAdapter, private _registerAPIAdapter : RegisterAPIAdapter, 
-    private _verifyEmailAPIAdapter : VerifyEmailAPIAdapter, private _verifyCodeAPIAdapter : VerifyCodeAPIAdapter, private _resetPasswordAPIAdapter : ResetPasswordAPIAdapter
+    private _verifyEmailAPIAdapter : VerifyEmailAPIAdapter, private _verifyCodeAPIAdapter : VerifyCodeAPIAdapter, 
+    private _resetPasswordAPIAdapter : ResetPasswordAPIAdapter, private _logoutAPIAdapter : LogoutAPIAdapter, private _userDataAPIAdapter : UserDataAPIAdapter
   ) { }
 
   login(data: any) {
@@ -46,6 +49,18 @@ export class AuthApiService implements AuthAPI {
     return this._httpClient.put(AuthEndPoint.RESET_PASSWORD, data).pipe(
       map(res => this._resetPasswordAPIAdapter.successAdapt(res)),
       catchError(err => of(this._resetPasswordAPIAdapter.errAdapt(err)))
+    );
+  };
+  logout(): Observable<any> {
+    return this._httpClient.get(AuthEndPoint.LOGOUT).pipe(
+      map(res => this._logoutAPIAdapter.successAdapt(res)),
+      catchError(err => of(this._logoutAPIAdapter.errAdapt(err)))
+    );
+  };
+  getUserData(): Observable<any> {
+    return this._httpClient.get(AuthEndPoint.USER_INFO).pipe(
+      map(res => this._userDataAPIAdapter.successAdapt(res)),
+      catchError(err => of(this._userDataAPIAdapter.errAdapt(err)))
     );
   };
 }

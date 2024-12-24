@@ -1,0 +1,10 @@
+<section class="mt-4 flex flex-column row-gap-4">
+    <app-personal-bar [userData]="userData"></app-personal-bar>
+    <div class="bg-white border-round-2xl shadow-4 p-2 flex flex-column justify-content-start column-gap-4">
+        <div class="w-full flex justify-content-between text-main">
+            <p>Quizes</p>
+            <p>View all</p>
+        </div>
+        <app-quiz-card [subjectList]="subjectList"></app-quiz-card>
+    </div>
+</section>

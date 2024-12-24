@@ -1,0 +1,17 @@
+<div class="px-4 py-6 h-full z-5">
+    <img src="assets/images/elevate-logo.png" alt="Elevate Logo">
+    <div class="flex flex-column row-gap-4 mt-6">
+        <a class="border-none flex w-full align-items-center column-gap-4 p-3 border-round-xl text-2xl cursor-pointer no-underline" routerLink="dashboard" routerLinkActive="bg-main">
+            <i class="fa-solid fa-table-list text-main" routerLinkActive="text-white"></i>
+            <span class="text-gray-500 font-medium text-xl" routerLinkActive="text-white">Dashboard</span>
+        </a>
+        <a class="border-none flex w-full align-items-center column-gap-4 p-3 border-round-xl text-2xl cursor-pointer no-underline" routerLink="quizHistory" routerLinkActive="bg-main">
+            <i class="fa-solid fa-clock-rotate-left text-main" routerLinkActive="text-white"></i>
+            <span class="text-gray-500 font-medium text-xl" routerLinkActive="text-white">Quiz History</span>
+        </a>
+        <a class="border-none flex w-full align-items-center column-gap-4 p-3 border-round-xl text-2xl cursor-pointer" (click)="logout()" [ngClass]="{'bg-main': userLogout, 'text-white': !userLogout}">
+            <i class="fa-solid fa-door-open text-main" [ngClass]="{'text-white': userLogout}"></i>
+            <span class="text-gray-500 font-medium text-xl" [ngClass]="{'text-white': userLogout}">Logout</span>
+        </a>
+    </div>
+</div>
