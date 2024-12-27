@@ -1,4 +1,4 @@
-<button class="bg-main border-round-2xl border-none py-3 outline-none text-white cursor-pointer {{classes}}" (click)="notifyParent()">
+<button class="bg-main border-round-2xl border-main outline-none text-white cursor-pointer {{classes}}" [disabled]="disabled" (click)="notifyParent()">
     @if (isLoading) {<i class="fas fa-spin fa-spinner"></i>}
     @else {{{text}}}
 </button>

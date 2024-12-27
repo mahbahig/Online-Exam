@@ -1,16 +1,16 @@
 import { Component, inject, OnDestroy, OnInit } from '@angular/core';
-import { PersonalBarComponent } from "../../../shared/components/business/personal-bar/personal-bar.component";
-import { QuizCardComponent } from "../../../shared/components/business/quiz-card/quiz-card.component";
+import { PersonalBarComponent } from "../../../shared/components/ui/personal-bar/personal-bar.component";
+import { SubjectCardComponent } from "../../../shared/components/ui/subject-card/subject-card.component";
 import { Subscription } from 'rxjs';
 import { SubjectsService } from '../../../feature/services/subjects/subjects.service';
-import { Subject } from '../../interface/subject/subject';
+import { ISubject } from '../../../shared/components/business/interfaces/subject/isubject';
 import { AuthApiService } from 'auth-api';
-import { UserData } from '../../interface/userdata/userData';
+import { IUserData } from '../../../shared/components/business/interfaces/userdata/iuserData';
 
 @Component({
   selector: 'app-dashboard',
   standalone: true,
-  imports: [PersonalBarComponent, QuizCardComponent],
+  imports: [PersonalBarComponent, SubjectCardComponent],
   templateUrl: './dashboard.component.html',
   styleUrls: ['./dashboard.component.scss']
 })
@@ -19,8 +19,8 @@ export class DashboardComponent implements OnInit, OnDestroy {
   private readonly _subjectsService = inject(SubjectsService);
   private readonly _authApiService = inject(AuthApiService);
 
-  subjectList: Subject[] = [];
-  userData!: UserData;
+  subjectList: ISubject[] = [];
+  userData!: IUserData;
 
   subjectSubsrciption!: Subscription;
   userDataSubsrciption!: Subscription;
@@ -43,6 +43,7 @@ export class DashboardComponent implements OnInit, OnDestroy {
       }
     });
   }
+
   ngOnDestroy(): void {
     this.subjectSubsrciption.unsubscribe();
     this.userDataSubsrciption.unsubscribe();

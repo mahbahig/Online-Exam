@@ -17,7 +17,7 @@ export class SubjectsService {
       catchError(err => of(this._subjectAPIAdapter.errAdapt(err)))
     );
   }
-  getSubjectById(subjectId: string): Observable<any> {
+  getSubjectById(subjectId: string | null): Observable<any> {
     return this._httpClient.get(`${environment.baseURL}subjects/${subjectId}`)
   };
 }

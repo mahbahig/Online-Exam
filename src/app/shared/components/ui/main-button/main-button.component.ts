@@ -11,6 +11,7 @@ export class MainButtonComponent {
   @Input() text: string = 'Next';
   @Input() classes: string = '';
   @Input() isLoading: boolean = false;
+  @Input() disabled: boolean = false;
   @Output() buttonClicked = new EventEmitter<void>();
 
   notifyParent() {

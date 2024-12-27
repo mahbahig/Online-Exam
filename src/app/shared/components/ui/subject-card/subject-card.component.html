@@ -1,7 +1,7 @@
 <div class="flex flex-wrap">
     @for (subject of subjectList; track subject._id) {
         <div class="p-2 w-full md:w-4 md:mb-2">
-            <div class="relative border-round-2xl h-22rem justify-content-center cursor-pointer">
+            <div class="relative border-round-2xl h-22rem justify-content-center cursor-pointer" [routerLink]="['/user/selectQuiz', subject._id]">
                 <img [src]="subject.icon" class="z-1 absolute w-full h-full" alt="Quiz Cover Image">
                 <div class="mx-auto w-11 h-full relative">
                     <div class="z-2 absolute w-full bottom-0 mb-4 ">

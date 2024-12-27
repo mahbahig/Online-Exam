@@ -7,7 +7,7 @@ export const routes: Routes = [
     { path: 'auth', loadComponent: () => import('./core/layout/auth/auth.component').then((m) => m.AuthComponent), canActivate:[loggedGuard], 
         children: [
             {path: '', redirectTo: 'login', pathMatch: 'full'},
-            {path: 'login', loadComponent: () => import('./core/pages/login/login.component').then((m) => m.LoginComponent)},
+            {path: 'login', loadComponent: () => import('./core/pages/login/login.component').then((m) => m.LoginComponent), title: 'Login'},
             {path: 'register', loadComponent: () => import('./core/pages/register/register.component').then((m) => m.RegisterComponent)},
             {path: 'forgetpassword', loadComponent: () => import('./core/pages/forget-password/forget-password.component').then((m) => m.ForgetPasswordComponent)},
         ]
@@ -16,7 +16,8 @@ export const routes: Routes = [
         children: [
             {path: '', redirectTo: 'dashboard', pathMatch: 'full'},
             {path: 'dashboard', loadComponent: () => import('./core/pages/dashboard/dashboard.component').then((m) => m.DashboardComponent)},
-            {path: 'quizHistory', loadComponent: () => import('./core/pages/quiz-history/quiz-history.component').then((m) => m.QuizHistoryComponent)},
+            {path: 'quizHistory', loadComponent: () => import('./feature/pages/quiz-history/quiz-history.component').then((m) => m.QuizHistoryComponent)},
+            {path: 'selectQuiz/:subjectID', loadComponent: () => import('./feature/pages/select-quiz/select-quiz.component').then((m) => m.SelectQuizComponent)},
         ]
     }
 ];

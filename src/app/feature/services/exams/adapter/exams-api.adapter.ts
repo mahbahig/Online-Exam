@@ -4,19 +4,19 @@ import { Adapter } from '../../../../shared/components/business/interfaces/adapt
 @Injectable({
   providedIn: 'root'
 })
-export class SubjectAPIAdapter  implements Adapter{
+export class ExamsAPIAdapter implements Adapter {
 
   constructor() { }
-
-  successAdapt(data: any) {
+  
+  successAdapt(data: any): any {
     return {
       status: 'success',
       message: data.message,
       meta: data.metadata,
-      subjects: data.subjects
+      exams: data.exams,
     };
   }
-  errAdapt(data: any) {
+  errAdapt(data: any): any {
     return {
       status: 'error',
       message: data.error.message,

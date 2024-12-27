@@ -1,4 +1,4 @@
-export interface Subject {
+export interface ISubject {
     _id: string;
     name: string;
     icon: string;

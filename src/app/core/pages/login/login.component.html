@@ -30,15 +30,8 @@
         </div>
         <p class="text-right text-main cursor-pointer" [routerLink]="['/auth/forgetpassword']">Recover Password?</p>
     </div>
-    <app-main-button text="Sign in" [isLoading]="isLoading" classes="w-full"></app-main-button>
+    <app-main-button text="Sign in" [isLoading]="isLoading" classes="w-full py-3"></app-main-button>
     @if (userMessage != 'None') {
         <app-message-box [type]="userStatus" [message]="userMessage"></app-message-box>
     }
 </form>
-
-
-<!-- 
-1- Front end team
-2- Client
-3- Backend team
--->

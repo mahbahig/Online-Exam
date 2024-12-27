@@ -1,7 +1,7 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { ProgressBarModule } from 'primeng/progressbar';
 import { ToastModule } from 'primeng/toast';
-import { UserData } from '../../../../core/interface/userdata/userData';
+import { IUserData } from '../../business/interfaces/userdata/iuserData';
 
 @Component({
   selector: 'app-personal-bar',
@@ -11,6 +11,6 @@ import { UserData } from '../../../../core/interface/userdata/userData';
   styleUrl: './personal-bar.component.scss'
 })
 export class PersonalBarComponent {
-  @Input() userData!: UserData;
+  @Input() userData!: IUserData;
   value = 54;
 }

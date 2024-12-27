@@ -1,4 +1,4 @@
-export interface UserData {
+export interface IUserData {
     status: string;
     message: string;
     userId: string;

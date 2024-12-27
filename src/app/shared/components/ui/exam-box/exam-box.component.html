@@ -1,0 +1,62 @@
+<div class="flex bg-white shadow-4 border-round-2xl px-4 py-2 justify-content-between">
+    <div class="flex">
+        <img [src]="" alt="Course Logo" class="w-4rem h-4rem"/>
+        <div class="flex flex-column justify-content-center row-gap-1">
+            <h3 class="my-0 font-medium">{{exam?.title}}</h3>
+            <p class="text-gray-500 my-0">{{exam?.numberOfQuestions}} Questions</p>
+        </div>
+    </div>
+    <div class="flex flex-column justify-content-center row-gap-1">
+        <h3 class="my-0 font-medium text-base">{{exam?.duration}} Minutes</h3>
+        <app-main-button text="Start" classes="w-full py-1" (click)="showInstructionModal()"></app-main-button>
+    </div>
+</div>
+@if (showModal) {
+    <p-dialog [modal]="true" [draggable]="true" [showHeader]="false" contentStyleClass="py-4 px-2 border-round-xl" styleClass="w-10"  [closeOnEscape]="false" [closable]="false" [visible]="true">
+        @if (instructionModal) {
+            <h2 class="my-0 py-0">Instructions</h2>
+            <ul class="mt-2 px-4">
+                <li>Lorem ipsum dolor sit amet consectetur.</li>
+                <li>Lorem ipsum dolor sit amet consectetur.</li>
+                <li>Lorem ipsum dolor sit amet consectetur.</li>
+                <li>Lorem ipsum dolor sit amet consectetur.</li>
+            </ul>
+            <app-main-button text="Start" classes="w-full py-2" [isLoading]="isLoading" (click)="startExam()"></app-main-button>
+        }
+        @else {
+            <div class="w-full flex justify-content-between py-0 my-0 align-items-center">
+                <p class="text-main my-0 py-0 text-sm">Question {{currentQuestionIndex + 1}} of {{examQuestions.length}}</p>
+                <div class="text-green-400 my-0 py-0 text-sm flex align-items-center column-gap-2">
+                    <img src="assets\images\alarm.png" class="my-0 py-0" alt="">
+                    <p class="my-0 py-0">14:59</p>
+                </div>
+            </div>
+            <div class="px-2">
+                <div class="w-full my-2 flex justify-content-between column-gap-0 text-gray-400">
+                    @for (question of examQuestions; track question._id) {
+                        <i class="fa-solid fa-circle text-2xs mx-0 px-0" [ngClass]="{'text-main': isQuestionAnswered(question._id)}"></i>
+                    }
+                </div>
+                <div class="mt-6">
+                    <p class="font-bold">{{examQuestions[currentQuestionIndex].question}}</p>
+                    <div class="flex flex-column row-gap-2">
+                        @for (answer of examQuestions[currentQuestionIndex].answers; track answer.key) {
+                            <div class="bg-gray-100 p-3 border-round-xl">
+                                <input type="radio" [checked]="selectedAnswer == answer.key" [name]="examQuestions[currentQuestionIndex]._id" [id]="answer.key" [value]="answer.key" (change)="selectedAnswer = answer.key">
+                                <label [for]="answer.key" class="my-0 py-0">{{answer.answer}}</label>
+                            </div>
+                        }
+                    </div>
+                    <div class="flex justify-content-between mt-4">
+                        <div class="w-5 text-main">
+                            <button class="bg-transparent border-round-2xl border-main outline-none text-main cursor-pointer w-full py-2" (click)="prevQuestion()">Back</button>
+                        </div>
+                        <div class="w-5">
+                            <app-main-button classes="w-full py-2" text="Next" [disabled]="!selectedAnswer" (click)="nextQuestion(examQuestions[currentQuestionIndex]._id, selectedAnswer)"></app-main-button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        }
+    </p-dialog>
+}

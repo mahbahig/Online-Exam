@@ -26,7 +26,7 @@
         </div>
     </div>
     <p class="text-center" [routerLink]="['/auth/forgetpassword']">Already have an account? <span class="text-main cursor-pointer">Login</span></p>
-    <app-main-button text="Sign up" [isLoading]="isLoading" classes="w-full"></app-main-button>
+    <app-main-button text="Sign up" [isLoading]="isLoading" classes="w-full py-3"></app-main-button>
     @if (userMessage != 'None') {
         <app-message-box [type]="userStatus" [message]="userMessage"></app-message-box>
     }    

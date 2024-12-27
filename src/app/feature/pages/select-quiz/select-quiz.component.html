@@ -1,0 +1,5 @@
+<div class="flex flex-column row-gap-4 my-4">
+    @for (exam of subjectExams; track exam._id) {
+        <app-exam-box [exam]="exam"></app-exam-box>
+    }
+</div>
