@@ -28,7 +28,7 @@
                 <p class="text-main my-0 py-0 text-sm">Question {{currentQuestionIndex + 1}} of {{examQuestions.length}}</p>
                 <div class="text-green-400 my-0 py-0 text-sm flex align-items-center column-gap-2">
                     <img src="assets\images\alarm.png" class="my-0 py-0" alt="">
-                    <p class="my-0 py-0">14:59</p>
+                    <p class="my-0 py-0" [ngClass]="{'text-red-500': timeLeft < 180}">{{formatTime(timeLeft)}}</p>
                 </div>
             </div>
             <div class="px-2">

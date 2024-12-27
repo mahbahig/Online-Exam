@@ -33,6 +33,9 @@ export class ExamBoxComponent implements OnDestroy{
 
   selectedAnswer: any ;
 
+  timeLeft: number = 15 * 60;
+  timer: any;
+
   showInstructionModal(): void {
     this.showModal = true;
     if (this.exam) {
@@ -52,7 +55,20 @@ export class ExamBoxComponent implements OnDestroy{
   }
 
   startExam(): void {
-      this.instructionModal = false;
+    this.instructionModal = false;
+    this.timer = setInterval(() => {
+      if (this.timeLeft > 0) {
+        this.timeLeft--;
+      } else {
+        clearInterval(this.timer);
+      }
+    }, 1000);
+  }
+
+  formatTime(seconds: number): string {
+    const m = Math.floor(seconds / 60);
+    const s = seconds % 60;
+    return `${m.toString().padStart(2, '0')}:${s.toString().padStart(2, '0')}`;
   }
 
   prevQuestion(): void {
@@ -84,6 +100,9 @@ export class ExamBoxComponent implements OnDestroy{
   ngOnDestroy(): void {
     if (this.examSubsrciption) {
       this.examSubsrciption.unsubscribe();
+    }
+    if (this.timer) {
+      clearInterval(this.timer);
     }
   }
 }
