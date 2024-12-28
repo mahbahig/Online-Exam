@@ -23,7 +23,7 @@
             </ul>
             <app-main-button text="Start" classes="w-full py-2" [isLoading]="isLoading" (click)="startExam()"></app-main-button>
         }
-        @else {
+        @else if (questionModal) {
             <div class="w-full flex justify-content-between py-0 my-0 align-items-center">
                 <p class="text-main my-0 py-0 text-sm">Question {{currentQuestionIndex + 1}} of {{examQuestions.length}}</p>
                 <div class="text-green-400 my-0 py-0 text-sm flex align-items-center column-gap-2">
@@ -41,10 +41,12 @@
                     <p class="font-bold">{{examQuestions[currentQuestionIndex].question}}</p>
                     <div class="flex flex-column row-gap-2">
                         @for (answer of examQuestions[currentQuestionIndex].answers; track answer.key) {
-                            <div class="bg-gray-100 p-3 border-round-xl">
-                                <input type="radio" [checked]="selectedAnswer == answer.key" [name]="examQuestions[currentQuestionIndex]._id" [id]="answer.key" [value]="answer.key" (change)="selectedAnswer = answer.key">
-                                <label [for]="answer.key" class="my-0 py-0">{{answer.answer}}</label>
-                            </div>
+                            <label [for]="answer.key" class="d-flex align-items-center w-full h-full cursor-pointer">
+                                <div class="bg-gray-100 w-full p-3 border-round-xl">
+                                    <input type="radio" [checked]="selectedAnswer == answer.key" [name]="examQuestions[currentQuestionIndex]._id" [id]="answer.key" [value]="answer.key" (change)="selectedAnswer = answer.key">
+                                    <span class="my-0 py-0">{{answer.answer}}</span>
+                                </div>
+                            </label>
                         }
                     </div>
                     <div class="flex justify-content-between mt-4">
@@ -55,6 +57,39 @@
                             <app-main-button classes="w-full py-2" text="Next" [disabled]="!selectedAnswer" (click)="nextQuestion(examQuestions[currentQuestionIndex]._id, selectedAnswer)"></app-main-button>
                         </div>
                     </div>
+                </div>
+            </div>
+        }
+        @else if (resultModal) {
+            <h2 class="my-0 py-0 font-semibold">Your score</h2>
+            <div class="flex align-items-center justify-content-center column-gap-6">
+                <div class="relative">
+                    <p-chart type="doughnut" [data]="data" [options]="options" class="w-3"></p-chart>
+                    <div class="absolute text-center" style="top: 50%; left: 50%; transform: translate(-50%, -50%);">
+                        <p class="m-0 font-bold text-xl">{{ ((correctAnswers / (examQuestions.length)) * 100) | number:'1.0-0' }}%</p>
+                    </div>
+                </div>
+                <div>
+                    <div class="flex align-items-center mb-2">
+                        <span class="text-correct font-medium mr-2">Correct</span>
+                        <div class="border-correct border-circle border-1 w-2rem h-2rem flex justify-content-center align-items-center">
+                            <span class="text-correct">{{ correctAnswers }}</span>
+                        </div>
+                    </div>
+                    <div class="flex align-items-center">
+                        <span class="text-incorrect font-medium mr-2">Incorrect</span>
+                        <div class="border-incorrect border-circle border-1 w-2rem h-2rem flex justify-content-center align-items-center">
+                            <span class="text-incorrect">{{ examQuestions.length - correctAnswers }}</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="flex justify-content-between mt-4">
+                <div class="w-5 text-main">
+                    <button class="bg-transparent border-round-2xl border-main outline-none text-main cursor-pointer w-full py-2" (click)="showModal = false">Back</button>
+                </div>
+                <div class="w-5">
+                    <app-main-button classes="w-full py-2" text="Show results"></app-main-button>
                 </div>
             </div>
         }

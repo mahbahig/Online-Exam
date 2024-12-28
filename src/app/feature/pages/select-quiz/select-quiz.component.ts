@@ -36,9 +36,7 @@ export class SelectQuizComponent implements OnInit, OnDestroy {
     });
     this.examSubsrciption = this._examsService.getSubjectExams(this.subjectId).subscribe({
       next: (res) => {
-        console.log(res);
         this.subjectExams = res.exams;
-        console.log(this.subjectExams);
       },
       error: (error) => {
         console.error(error);
