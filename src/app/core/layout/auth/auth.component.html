@@ -34,6 +34,38 @@
                     <img src="assets\images\Apple Logo.svg" alt="">
                 </div>
             </div>
+            <app-google-sign-in></app-google-sign-in>
+            <div>
+                <div id="g_id_onload"
+                    data-client_id="405688619797-0e1gtgqeja0h8t7ks12rpgc4s903stug.apps.googleusercontent.com"
+                    data-context="signin"
+                    data-ux_mode="popup"
+                    data-itp_support="true"
+                    data-login_uri="https://exam.elevateegy.com/api/v1/auth/signin"
+                    >
+                </div>
+
+                <div class="g_id_signin"
+                    data-type="standard"
+                    data-shape="pill"
+                    data-theme="outline"
+                    data-text="signin_with"
+                    data-size="large"
+                    data-logo_alignment="left">
+                </div>
+            </div>
         </div>
     </div>
 </section>
+
+<script>
+    function decodeJWTToken(token){
+      return JSON.parse(atob(token.split(".")[1]))
+    }
+    function handleOauthResponse(response){
+      const responsePayload = decodeJWTToken(response.credential)
+      console.log(responsePayload)
+      localStorage.setItem('token',JSON.stringify(responsePayload))
+      window.location('/user/dashboard') 
+    }
+  </script>

@@ -7,6 +7,7 @@ import { QuestionsService } from '../../../../feature/services/questions/questio
 import { IQuestion } from '../../business/interfaces/question/iquestion';
 import { DecimalPipe, NgClass } from '@angular/common';
 import { ChartModule } from 'primeng/chart';
+import { ExamsService } from '../../../../feature/services/exams/exams.service';
 
 @Component({
   selector: 'app-exam-box',
@@ -18,12 +19,14 @@ import { ChartModule } from 'primeng/chart';
 export class ExamBoxComponent implements OnDestroy{
   @Input() exam!: IExam | null;
 
-  private readonly _QuestionsService = inject(QuestionsService);
+  private readonly _questionsService = inject(QuestionsService);
+  private readonly _examsService = inject(ExamsService);
 
   examSubsrciption: Subscription | null = null;
+  checkExamSubsrciption: Subscription | null = null;
 
   examQuestions: IQuestion[] = []
-  examAnswers: {questionId: string, answer: string}[] = []
+  examAnswers: {questionId: string, correct: string}[] = []
 
   showModal: boolean = false;
   instructionModal: boolean = true;
@@ -48,7 +51,7 @@ export class ExamBoxComponent implements OnDestroy{
     this.showModal = true;
     if (this.exam) {
       this.isLoading = !this.isLoading;
-      this.examSubsrciption = this._QuestionsService.getExamQuestions(this.exam._id).subscribe({
+      this.examSubsrciption = this._questionsService.getExamQuestions(this.exam._id).subscribe({
         next: (res) => {
           this.isLoading = !this.isLoading;
           this.examQuestions = res.questions;
@@ -96,8 +99,10 @@ export class ExamBoxComponent implements OnDestroy{
     else {
       this.examAnswers.push({
         questionId: questionId,
-        answer: answer
+        correct: answer
       })
+      console.log(this.examAnswers);
+      
       this.currentQuestionIndex++;
       this.selectedAnswer = null;
     }
@@ -113,12 +118,25 @@ export class ExamBoxComponent implements OnDestroy{
   }
 
   checkExam() {
+    let data = {
+      answers: this.examAnswers,
+      time: Math.floor(this.timeLeft/60)
+    };
+    this.checkExamSubsrciption = this._examsService.checkExam(data).subscribe({
+      next: (res) => {
+        console.log('Checked Ans');
+        console.log(res);
+      },
+      error: (error) => {
+        console.log(error);
+      }
+    });
     clearInterval(this.timer);
     for (let index = 0; index < this.examAnswers.length; index++) {
-      if (this.examQuestions[index].correct == this.examAnswers[index].answer) {
+      if (this.examQuestions[index].correct == this.examAnswers[index].correct) {
         this.correctAnswers++;
       }
-    }
+    };
     this.questionModal = false;
     this.resultModal = true;
 

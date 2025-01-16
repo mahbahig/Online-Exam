@@ -16,7 +16,7 @@ export class ExamsService {
       map(res => this._examsAPIAdapter.successAdapt(res)),
       catchError(err => of(this._examsAPIAdapter.errAdapt(err)))
     );
-  }
+  };
   getSubjectExams(subjectId: string | null): Observable<any> {
     return this._httpClient.get(`${environment.baseURL}exams?subject=${subjectId}`).pipe(
       map(res => this._examsAPIAdapter.successAdapt(res)),
@@ -25,5 +25,8 @@ export class ExamsService {
   };
   getExamById(examId: string): Observable<any> {
     return this._httpClient.get(`${environment.baseURL}exams/${examId}`);
+  };
+  checkExam(answers: any): Observable<any> {
+    return this._httpClient.post(`${environment.baseURL}questions/check`, answers);
   }
 }
